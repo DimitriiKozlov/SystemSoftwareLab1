@@ -10,34 +10,66 @@ using namespace std;
 
 const size_t memSize = 150;
 
-bool *memory = new bool[memSize];
+u_short *memory = new u_short[memSize];
 
 
-void mem_dump(){
+void mem_dump() {
     cout << "Memory status:" << endl;
     for (size_t i = 0; i < memSize; i++)
         cout << memory[i];
     cout << endl;
 }
 
-void *mem_alloc(size_t size){
+void *mem_alloc(size_t size) {
     size_t i = 0;
     size_t freeSize = 0;
-    if (!size)
-        return NULL;
 
-    while (i < memSize){
+    while (i < memSize) {
         if (!memory[i])
             freeSize++;
         else
             freeSize = 0;
 
         if (freeSize >= size) {
-            for (size_t j = i - freeSize + 1; j < freeSize; j++)
-                memory[j] = true;
+            size_t j = i - freeSize + 1;
+            for (; j < freeSize; j++)
+                memory[j] = 1;
+            memory[j - 1] = 5;
             return (memory + i - freeSize + 1);
         }
         i++;
+    }
+    return NULL;
+}
+
+void *mem_realloc(void *addr, size_t size) {
+    if (!addr)
+        return mem_alloc(size);
+
+    size_t i_first = (size_t) addr - (size_t) memory;
+    size_t i, j, i_last;
+    size_t freeSize = 0;
+
+    for (i = i_first; memory[i] != 5; i++, freeSize++);
+
+    i_last = i;
+    if (size < freeSize) {
+        for (j = i; j > i_first + size; j--)
+            memory[j] = 0;
+        memory[j - 1] = 5;
+        return addr;
+    }
+
+    while ((memory[i] == 1) || (i <= memSize)){
+        i++;
+        freeSize++;
+    }
+
+    if (size < freeSize) {
+        for (j = i_last; j < i_first + size; j++)
+            memory[j] = 1;
+        memory[j - 1] = 5;
+        return addr;
     }
     return NULL;
 }
