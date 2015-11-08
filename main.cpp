@@ -1,19 +1,15 @@
+//
+// Created by dimirtii on 08.11.15.
+//
+
 #include <iostream>
+#include "allocator.h"
 
 using namespace std;
 
-const size_t memSize = 150;
-
-bool* memory = new bool[memSize];
-
-void mem_dump(){
-    for (size_t i = 0; i < memSize; i++)
-        cout << memory[i];
-    cout << endl;
-    return;
-}
 
 int main(){
+    cout << "Memory status:" << endl;
     mem_dump();
     return 0;
 }
