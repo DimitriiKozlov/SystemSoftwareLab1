@@ -27,17 +27,17 @@ void *mem_alloc(size_t size){
         return NULL;
 
     while (i < memSize){
-        if (memory[i])
+        if (!memory[i])
             freeSize++;
-        else{
-            if (freeSize >= size) {
-                for (size_t j = i - freeSize - 1; j < freeSize; j++)
-                    memory[j] = true;
-                return (memory + i - freeSize - 1);
-            }
-            else
-                freeSize = 0;
+        else
+            freeSize = 0;
+
+        if (freeSize >= size) {
+            for (size_t j = i - freeSize + 1; j < freeSize; j++)
+                memory[j] = true;
+            return (memory + i - freeSize + 1);
         }
+        i++;
     }
     return NULL;
 }
