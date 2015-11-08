@@ -13,3 +13,6 @@ void *mem_alloc(size_t);
 // Resize memory space
 void *mem_realloc(void*, size_t);
 
+// Take back memory space
+void mem_free(void*);
+

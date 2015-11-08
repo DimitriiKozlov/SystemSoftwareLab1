@@ -8,9 +8,10 @@
 using namespace std;
 
 
-const size_t memSize = 150;
+const size_t memSize = 60;
 
 u_short *memory = new u_short[memSize];
+void *memAddress = memory;
 
 
 void mem_dump() {
@@ -35,7 +36,7 @@ void *mem_alloc(size_t size) {
             for (j = i - freeSize + 1; j < i + 1; j++)
                 memory[j] = 1;
             memory[j - 1] = 5;
-            return (memory + i - freeSize + 1);
+            return (memory + (i - freeSize)/ sizeof(u_short));
         }
         i++;
     }
@@ -72,4 +73,16 @@ void *mem_realloc(void *addr, size_t size) {
         return addr;
     }
     return NULL;
+}
+
+void mem_free(void *addr){
+    if (!addr)
+        return;
+
+    size_t i;
+
+    for (i = (size_t) addr - (size_t) memory; memory[i] != 5; i++)
+        memory[i] = 0;
+    memory[i] = 0;
+    return;
 }

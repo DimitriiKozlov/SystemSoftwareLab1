@@ -19,8 +19,11 @@ int main(){
     cout << b << endl;
     mem_dump();
     mem_alloc(4);
-    mem_alloc(8);
+    void* c = mem_alloc(8);
     mem_alloc(10);
+    mem_dump();
+    mem_free(c);
+    mem_dump();
     mem_alloc(14);
     mem_dump();
 
