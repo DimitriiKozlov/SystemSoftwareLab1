@@ -11,12 +11,17 @@ using namespace std;
 int main(){
 
     mem_dump();
-    void* a = mem_alloc(30);
+    void* a = mem_alloc(8);
     cout << a << endl;
     mem_dump();
 
-    void* b = mem_realloc(a, 50);
+    void* b = mem_realloc(a, 9);
     cout << b << endl;
+    mem_dump();
+    mem_alloc(4);
+    mem_alloc(8);
+    mem_alloc(10);
+    mem_alloc(14);
     mem_dump();
 
     return 0;

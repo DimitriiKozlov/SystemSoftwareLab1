@@ -31,8 +31,8 @@ void *mem_alloc(size_t size) {
             freeSize = 0;
 
         if (freeSize >= size) {
-            size_t j = i - freeSize + 1;
-            for (; j < freeSize; j++)
+            size_t j;
+            for (j = i - freeSize + 1; j < i + 1; j++)
                 memory[j] = 1;
             memory[j - 1] = 5;
             return (memory + i - freeSize + 1);
@@ -54,13 +54,13 @@ void *mem_realloc(void *addr, size_t size) {
 
     i_last = i;
     if (size < freeSize) {
-        for (j = i; j > i_first + size; j--)
+        for (j = i; j > i_first + size - 1; j--)
             memory[j] = 0;
-        memory[j - 1] = 5;
+        memory[j] = 5;
         return addr;
     }
 
-    while ((memory[i] == 1) || (i <= memSize)){
+    while ((memory[i] == 1) || (i <= memSize)) {
         i++;
         freeSize++;
     }
