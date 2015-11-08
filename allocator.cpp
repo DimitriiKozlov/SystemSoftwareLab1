@@ -17,5 +17,4 @@ void mem_dump(){
     for (size_t i = 0; i < memSize; i++)
         cout << memoryStream[i];
     cout << endl;
-    return;
 }
