@@ -9,7 +9,10 @@ using namespace std;
 
 
 int main(){
-    cout << "Memory status:" << endl;
+
     mem_dump();
+    cout << mem_alloc(30) << endl;
+    mem_dump();
+
     return 0;
 }

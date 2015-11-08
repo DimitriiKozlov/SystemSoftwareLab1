@@ -7,3 +7,6 @@
 //Show memory status
 void mem_dump();
 
+//Take memory space
+void *mem_alloc(size_t);
+
