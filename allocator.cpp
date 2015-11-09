@@ -75,22 +75,22 @@ void *mem_realloc(void *addr, size_t size) {
     return NULL;
 }
 
-void mem_free(void *addr){
+void mem_free(void *addr) {
     if (!addr)
         return;
 
     size_t i;
 
-    for (i = (size_t) addr - (size_t) memory; memory[i] != 5; i++)
+    for (i = getIndexOfMemory(addr); memory[i] != 5; i++)
         memory[i] = 0;
     memory[i] = 0;
     return;
 }
 
-size_t getIndexOfMemory(void *addr){
-    return ((size_t)(addr) - (size_t)(memAddress)) / sizeof(u_short);
+size_t getIndexOfMemory(void *addr) {
+    return ((size_t) (addr) - (size_t) (memAddress)) / sizeof(u_short);
 }
 
-void *getAddresOfMemory(size_t index){
+void *getAddresOfMemory(size_t index) {
     return (memAddress + index * sizeof(u_short));
 }
