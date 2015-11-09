@@ -36,7 +36,7 @@ void *mem_alloc(size_t size) {
             for (j = i - freeSize + 1; j < i + 1; j++)
                 memory[j] = 1;
             memory[j - 1] = 5;
-            return (memory + (i - freeSize)/ sizeof(u_short));
+            return getAddresOfMemory(i - freeSize + 1);
         }
         i++;
     }
@@ -47,7 +47,7 @@ void *mem_realloc(void *addr, size_t size) {
     if (!addr)
         return mem_alloc(size);
 
-    size_t i_first = (size_t) addr - (size_t) memory;
+    size_t i_first = getIndexOfMemory(addr);
     size_t i, j, i_last;
     size_t freeSize = 0;
 
@@ -85,4 +85,12 @@ void mem_free(void *addr){
         memory[i] = 0;
     memory[i] = 0;
     return;
+}
+
+size_t getIndexOfMemory(void *addr){
+    return ((size_t)(addr) - (size_t)(memAddress)) / sizeof(u_short);
+}
+
+void *getAddresOfMemory(size_t index){
+    return (memAddress + index * sizeof(u_short));
 }

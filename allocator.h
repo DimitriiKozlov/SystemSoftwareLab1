@@ -16,3 +16,9 @@ void *mem_realloc(void*, size_t);
 // Take back memory space
 void mem_free(void*);
 
+// Get index of memory
+size_t getIndexOfMemory(void*);
+
+// Get address of memory
+void *getAddresOfMemory(size_t);
+
